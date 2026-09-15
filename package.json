@@ -16,5 +16,9 @@
     },
     "optionalDependencies": {
         "@laravel/multiplex": "^0.4.1"
+    },
+    "dependencies": {
+        "flag-icons": "^7.5.0",
+        "lucide": "^1.46.0"
     }
 }
