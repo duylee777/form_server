@@ -18,7 +18,20 @@ class SocialController extends Controller
     // Chuyển hướng tới nhà cung cấp (google, facebook, github...)
     public function redirectToProvider(string $provider)
     {
-        return Socialite::driver($provider)->redirect();
+        if ($provider === 'google') {
+            /** @var \Laravel\Socialite\Two\GoogleProvider $driver */
+            $driver = Socialite::driver('google');
+            return $driver
+            ->scopes([
+                'https://www.googleapis.com/auth/forms.body.readonly',
+                'https://www.googleapis.com/auth/drive.metadata.readonly', // Bắt buộc để đọc danh sách Form
+            ])
+            ->with(['access_type' => 'offline', 'prompt' => 'consent']) // Bắt buộc để lấy Refresh Token
+            ->redirect();
+        }
+        else {
+            return Socialite::driver($provider)->redirect();
+        }
     }
 
     // Nhận dữ liệu callback từ nhà cung cấp
@@ -28,7 +41,7 @@ class SocialController extends Controller
             $socialUser = Socialite::driver($provider)->user();
 
             if (!$socialUser->getEmail()) {
-                return redirect('/login')->with('error', 'Tài khoản mạng xã hội của bạn không cung cấp Email.');
+                return redirect()->route('auth.login')->with('error', __('your social media account does not provide an email address'));
             }
 
             // 1. Kiểm tra xem Social Account này đã từng liên kết chưa
@@ -44,8 +57,8 @@ class SocialController extends Controller
 
             // 2. Nếu chưa liên kết -> Tìm User theo Email
             $user = DB::transaction(function () use ($socialUser, $provider) {
-                // Nếu chưa có User -> Tạo User mới
-                $user = User::firstOrCreate(
+                // Lấy user đang đăng nhập (nếu có) hoặc tìm/tạo User theo Email
+                $user = Auth::user() ?? User::firstOrCreate(
                     ['email' => $socialUser->getEmail()],
                     [
                         'name' => $socialUser->getName() ?? $socialUser->getNickname(),
@@ -56,21 +69,26 @@ class SocialController extends Controller
                 );
 
                 // 3. Liên kết Social Account mới với User
-                $user->socialAccounts()->create([
-                    'provider' => $provider,
-                    'provider_id' => $socialUser->getId(),
-                    'avatar' => $socialUser->getAvatar(),
-                ]);
+                $user->socialAccounts()->updateOrCreate(
+                    [ 'provider' => $provider ],
+                    [
+                        'provider_id' => $socialUser->getId(),
+                        'avatar'        => $socialUser->getAvatar(),
+                        'access_token'  => json_encode($socialUser->token),
+                        'refresh_token' => $socialUser->refreshToken ?? $user->socialAccounts()->where('provider', $provider)->value('refresh_token'),
+                        'expires_at'    => isset($socialUser->expiresIn) ? now()->addSeconds($socialUser->expiresIn) : null,
+                    ]
+                );
 
                 return $user;
             });
 
             Auth::login($user, true);
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/dashboard')->with('success', __('successfully connected :provider account', ['provider' => ucfirst($provider)]));;
 
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            return redirect('/login')->with('error', 'Đăng nhập thất bại, vui lòng thử lại.');
+            return redirect()->route('auth.login')->with('error', __('login failed, please try again'));
         }
     }
 }
