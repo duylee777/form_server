@@ -13,45 +13,47 @@
         <link rel="stylesheet" href="{{ assets/css/tailwindcss.min.css }}">
     @endif
 </head>
-<body class="max-w-lg bg-white h-full mx-auto p-4 space-y-4">
-    <header class="pb-4 border-b-2 border-gray-300 text-right">
-        <div class="dropdown dropdown-end">
-            <div tabindex="0" role="button" class="">
-                @switch (app()->getLocale())
-                    @case('en')
-                        <span class="fi fi-us"></span>
-                        @break
-                    @case('vi')
-                        <span class="fi fi-vn"></span>
-                        @break
-                    @default
-                        <span class="fi fi-vn"></span>
-                @endswitch
+<body class="min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-lg bg-white h-max mx-auto p-4 rounded-xl shadow-xl">
+        <header class="pb-4 text-right">
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="">
+                    @switch (app()->getLocale())
+                        @case('en')
+                            <span class="fi fi-us"></span>
+                            @break
+                        @case('vi')
+                            <span class="fi fi-vn"></span>
+                            @break
+                        @default
+                            <span class="fi fi-vn"></span>
+                    @endswitch
+                </div>
+                <ul
+                    tabindex="-1"
+                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                    <li>
+                        <a href="{{ route('language.switch', 'en') }}">
+                            <span class="fi fi-us"></span>
+                            {{ __('english') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('language.switch', 'vi') }}">
+                            <span class="fi fi-vn"></span>
+                            {{ __('vietnamese') }}
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <ul
-                tabindex="-1"
-                class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                <li>
-                    <a href="{{ route('language.switch', 'en') }}">
-                        <span class="fi fi-us"></span>
-                        English
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('language.switch', 'vi') }}">
-                        <span class="fi fi-vn"></span>
-                        Tiếng Việt
-                    </a>
-                </li>
-                
-
-            </ul>
-        </div>
-    </header>
-    <main class="">
-        @yield('content')
-    </main>
-    <footer class=""></footer>
-    @stack('scripts')
+        </header>
+        <main class="">
+            @yield('content')
+        </main>
+        <footer class="pt-4 mt-8">
+            <p class="text-sm italic text-gray-600">© itc - 2026</p>
+        </footer>
+        @stack('scripts')
+    </div>
 </body>
 </html>

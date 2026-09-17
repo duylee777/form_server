@@ -1,3 +1,15 @@
 {
-    "login": "Đăng nhập"
+    "admin": "Quản trị",
+
+    "dashboard": "Bảng quản trị",
+
+    "login": "Đăng nhập",
+    "login with google": "Đăng nhập với Google",
+    "or continue with": "hoặc tiếp tục với",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "forgot password": "Quên mật khẩu ?",
+
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt"
 }

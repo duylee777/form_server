@@ -1,3 +1,15 @@
 {
-    "login": "Login"
+    "admin": "Admin",
+
+    "dashboard": "Dashboard",
+    
+    "login": "Login",
+    "login with google": "Login with Google",
+    "or continue with": "or continue with",
+    "email": "Email",
+    "password": "Password",
+    "forgot password": "Forgot password ?",
+
+    "english": "English",
+    "vietnamese": "Vietnamese"
 }

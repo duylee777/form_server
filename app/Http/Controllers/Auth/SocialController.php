@@ -18,7 +18,18 @@ class SocialController extends Controller
     // Chuyển hướng tới nhà cung cấp (google, facebook, github...)
     public function redirectToProvider(string $provider)
     {
-        return Socialite::driver($provider)->redirect();
+        if ($provider === 'google') {
+            return Socialite::driver('google')
+            ->scopes([
+                'https://www.googleapis.com/auth/forms.body.readonly',
+                'https://www.googleapis.com/auth/drive.metadata.readonly', // Bắt buộc để đọc danh sách Form
+            ])
+            ->with(['access_type' => 'offline', 'prompt' => 'consent']) // Bắt buộc để lấy Refresh Token
+            ->redirect();
+        }
+        else {
+            return Socialite::driver($provider)->redirect();
+        }
     }
 
     // Nhận dữ liệu callback từ nhà cung cấp
@@ -28,7 +39,7 @@ class SocialController extends Controller
             $socialUser = Socialite::driver($provider)->user();
 
             if (!$socialUser->getEmail()) {
-                return redirect('/login')->with('error', 'Tài khoản mạng xã hội của bạn không cung cấp Email.');
+                return redirect()->route('auth.login')->with('error', 'Tài khoản mạng xã hội của bạn không cung cấp Email.');
             }
 
             // 1. Kiểm tra xem Social Account này đã từng liên kết chưa
@@ -70,7 +81,7 @@ class SocialController extends Controller
 
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            return redirect('/login')->with('error', 'Đăng nhập thất bại, vui lòng thử lại.');
+            return redirect()->route('auth.login')->with('error', 'Đăng nhập thất bại, vui lòng thử lại.');
         }
     }
 }
