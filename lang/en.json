@@ -11,5 +11,11 @@
     "forgot password": "Forgot password ?",
 
     "english": "English",
-    "vietnamese": "Vietnamese"
+    "vietnamese": "Vietnamese",
+
+    "the account is not connected to google": "The account is not connected to Google.",
+    "the google connection session has expired. please reconnect": "The Google connection session has expired. Please reconnect.",
+    "your social media account does not provide an email address": "Your social media account does not provide an email address.",
+    "login failed, please try again": "Login failed, please try again.",
+    "successfully connected :provider account": "Successfully connected :provider account!"
 }

@@ -11,5 +11,11 @@
     "forgot password": "Quên mật khẩu ?",
 
     "english": "Tiếng Anh",
-    "vietnamese": "Tiếng Việt"
+    "vietnamese": "Tiếng Việt",
+
+    "the account is not connected to google": "Tài khoản không được kết nối với Google.",
+    "the google connection session has expired. please reconnect": "Phiên kết nối Google đã hết hạn. Vui lòng kết nối lại.",
+    "your social media account does not provide an email address": "Tài khoản mạng xã hội của bạn không cung cấp địa chỉ email.",
+    "login failed, please try again": "Đăng nhập thất bại, vui lòng thử lại.",
+    "successfully connected :provider account": "Đã kết nối tài khoản :provider thành công!"
 }

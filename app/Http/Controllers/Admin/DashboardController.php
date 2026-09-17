@@ -3,12 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\GoogleFormApiService;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index ()
+    public function index (Request $request, GoogleFormApiService $apiService)
     {
-        return view('admin.dashboard');
+        $user = $request->user();
+        $forms = [];
+        $error = null;
+
+        // Chỉ gọi API nếu người dùng đã liên kết tài khoản Google
+        if ($user->getSocialAccount('google')) {
+            try {
+                $forms = $apiService->getUserForms($user);
+            } catch (\Exception $e) {
+                $error = $e->getMessage();
+            }
+        }
+
+        return view('admin.dashboard', compact('forms', 'error'));
     }
 }

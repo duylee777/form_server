@@ -35,4 +35,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(SocialAccount::class);
     }
+
+    /**
+     * Lấy bản ghi SocialAccount theo provider (ví dụ: $user->getSocialAccount('google'))
+     */
+    public function getSocialAccount(string $provider): ?SocialAccount
+    {
+        return $this->socialAccounts()->where('provider', $provider)->first();
+    }
 }

@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "flag-icons": "^7.5.0",
+        "grapesjs": "^0.23.6",
         "lucide": "^1.46.0"
     }
 }

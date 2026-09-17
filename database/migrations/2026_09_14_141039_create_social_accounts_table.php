@@ -14,10 +14,16 @@ return new class extends Migration
         Schema::create('social_accounts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
+            $table->string('avatar')->nullable();
             $table->string('provider');    
             $table->string('provider_id'); 
-            $table->string('avatar')->nullable();
+            $table->text('access_token')->nullable();
+            $table->text('refresh_token')->nullable();
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
+
+            // Đảm bảo 1 user chỉ liên kết tối đa 1 tài khoản của mỗi provider
+            $table->unique(['user_id', 'provider']);
         });
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\GoogleFormController;
 use App\Http\Controllers\Auth\SocialController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -27,4 +28,9 @@ Route::get('/auth/{provider}/callback', [SocialController::class, 'handleProvide
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard.index');
+
+    Route::get('/my-forms', [GoogleFormController::class, 'index'])
+        ->name('forms.index');
+    // Route lấy danh sách field JSON
+    Route::get('/my-forms/{formId}/fields', [GoogleFormController::class, 'getFields'])->name('forms.fields');
 });
