@@ -1,0 +1,14 @@
+import { CustomCodeComponent } from "../components/custom_code.component";
+
+export function CustomCode(editor, category = 'General') {
+    const customCodeBlock = CustomCodeComponent(editor);
+
+    editor.BlockManager.add('custom-code-item', {
+        label: 'Mã tùy chỉnh',
+        category: category,
+        media: `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-code-icon lucide-file-code"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></svg>`,
+        content: { 
+            type: customCodeBlock 
+        }
+    });
+}
