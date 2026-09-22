@@ -1,0 +1,16 @@
+export function Text(editor, category = 'General') {
+    editor.BlockManager.add('text', {
+        label: 'Đoạn văn',
+        category: category,
+        media: '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M160 96C142.3 96 128 110.3 128 128C128 145.7 142.3 160 160 160L288 160L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 160L480 160C497.7 160 512 145.7 512 128C512 110.3 497.7 96 480 96L160 96z"/></svg>',
+        content: {
+            tagName: 'p',
+            type: 'text',
+            droppable: false,
+            attributes: {
+                class: 'p-4',
+            },
+            content: 'Nội dung đoạn văn ...'
+        }
+    });
+}

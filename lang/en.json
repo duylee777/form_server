@@ -17,5 +17,23 @@
     "the google connection session has expired. please reconnect": "The Google connection session has expired. Please reconnect.",
     "your social media account does not provide an email address": "Your social media account does not provide an email address.",
     "login failed, please try again": "Login failed, please try again.",
-    "successfully connected :provider account": "Successfully connected :provider account!"
+    "successfully connected :provider account": "Successfully connected :provider account!",
+
+    "create": "Create",
+    "design": "Design",
+    "edit": "Edit",
+    "save": "Save",
+    "delete": "Delete",
+    "delete :name": "Delete :name ?",
+    "yes, delete it": "Yes, delete it !",
+    "this cannot be undone": "This cannot be undone",
+
+    "no.": "No.",
+    "pages": "Pages",
+    "page list": "Page list",
+    "page name": "Name",
+    "page slug": "Slug",
+    "page status": "Status",
+    "create new page": "Create new Page",
+    "update page": "Update page"
 }

@@ -43,4 +43,9 @@ class User extends Authenticatable
     {
         return $this->socialAccounts()->where('provider', $provider)->first();
     }
+
+    public function pages(): HasMany
+    {
+        return $this->hasMany(Page::class);
+    }
 }

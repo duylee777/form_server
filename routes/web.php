@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\GoogleFormController;
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\Client\PageController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -33,4 +34,14 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
         ->name('forms.index');
     // Route lấy danh sách field JSON
     Route::get('/my-forms/{formId}/fields', [GoogleFormController::class, 'getFields'])->name('forms.fields');
+});
+
+Route::middleware(['auth'])->name('client.')->group(function () {
+    //pages
+    Route::prefix('pages')->name('pages.')->group(function () {
+        Route::get('/', [PageController::class, 'index'])->name('index');
+        Route::post('/', [PageController::class, 'store'])->name('store');
+        Route::put('/{page}', [PageController::class, 'update'])->name('update');
+        Route::delete('/{page}', [PageController::class, 'destroy'])->name('destroy');
+    });
 });
