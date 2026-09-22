@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use App\Services\GoogleFormApiService;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,9 @@ class DashboardController extends Controller
             }
         }
 
-        return view('admin.dashboard', compact('forms', 'error'));
+        //Lấy danh sách các trang do người dùng tạo
+        $pages = Page::where('user_id', $user->id)->get();
+
+        return view('admin.dashboard', compact('forms', 'error', 'pages'));
     }
 }

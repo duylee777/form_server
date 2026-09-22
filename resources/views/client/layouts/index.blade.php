@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <title>{{ config('app.name', 'Laravel') }} - {{ __('admin') }} - @yield('title', 'Page')</title>
 
     @fonts
@@ -18,14 +21,15 @@
         <input id="my-drawer-4" type="checkbox" class="drawer-toggle inline" />
         <div class="drawer-content bg-white">
             <!-- Navbar -->
-            @include('admin.layouts.nav')
+            @include('client.layouts.nav')
             <!-- Page content here -->
             <div class="p-4">
                 @yield('content')
             </div>
         </div>
 
-        @include('admin.layouts.sidebar')
+        @include('client.layouts.sidebar')
     </div>
+    @sweetAlert
 </body>
 </html>

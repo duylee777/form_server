@@ -52,7 +52,7 @@ class SocialController extends Controller
             if ($socialAccount) {
                 // Đã liên kết trước đó -> Đăng nhập bằng user tương ứng
                 Auth::login($socialAccount->user, true);
-                return redirect()->intended('/dashboard');
+                return redirect()->intended('/admin/dashboard');
             }
 
             // 2. Nếu chưa liên kết -> Tìm User theo Email
@@ -84,7 +84,7 @@ class SocialController extends Controller
             });
 
             Auth::login($user, true);
-            return redirect()->intended('/dashboard')->with('success', __('successfully connected :provider account', ['provider' => ucfirst($provider)]));;
+            return redirect()->intended('/admin/dashboard')->with('success', __('successfully connected :provider account', ['provider' => ucfirst($provider)]));;
 
         } catch (Exception $e) {
             Log::error($e->getMessage());
