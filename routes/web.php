@@ -40,5 +40,8 @@ Route::middleware(['auth'])->name('client.')->group(function () {
     //pages
     Route::prefix('pages')->name('pages.')->group(function () {
         Route::get('/', [PageController::class, 'index'])->name('index');
+        Route::post('/', [PageController::class, 'store'])->name('store');
+        Route::put('/{page}', [PageController::class, 'update'])->name('update');
+        Route::delete('/{page}', [PageController::class, 'destroy'])->name('destroy');
     });
 });

@@ -22,12 +22,33 @@ class PageController extends Controller
         $data = [
             'user_id' => Auth::user()->id,
             'name' => $request->name,
-            'slug' => $request->slug, 
-            'status' => $request->status, 
-            'content' => $request->content, 
-            'gjs_data' => $request->gjs_data
+            'slug' => $request->slug 
         ];
 
         Page::create($data);
+
+        Alert::success('Operation Complete', 'Your changes have been saved successfully.');
+        return redirect()->route('client.pages.index');
+    }
+
+    public function update (Request $request, Page $page)
+    {
+        $data = [
+            'name' => $request->name,
+            'slug' => $request->slug 
+        ];
+
+        $page->update($data);
+
+        Alert::success('Operation Complete', 'Your changes have been saved successfully.');
+        return redirect()->route('client.pages.index');
+    }
+
+    public function destroy (Page $page)
+    {
+        $page->delete();
+
+        Alert::success('Operation Complete', 'Your changes have been saved successfully.');
+        return redirect()->route('client.pages.index');
     }
 }
