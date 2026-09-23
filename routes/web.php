@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\GoogleFormController;
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\Client\DashboardController;
 use App\Http\Controllers\Client\PageController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -37,6 +38,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 });
 
 Route::middleware(['auth'])->name('client.')->group(function () {
+    // dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     //pages
     Route::prefix('pages')->name('pages.')->group(function () {
         Route::get('/', [PageController::class, 'index'])->name('index');

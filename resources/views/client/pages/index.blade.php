@@ -35,11 +35,11 @@
                         <td>{{ $page->status }}</td>
                         <td class="text-end">
                             <div class="dropdown dropdown-left dropdown-end">
-                                <button class="cursor-pointer" popovertarget="popover-{{ $page->id }}" style="anchor-name:--anchor-{{ $page->id }}">
+                                <button class="cursor-pointer" popovertarget="popover-{{ $page->id }}" style="--anchor-name: anchor-{{ $page->id }};">
                                     <i data-lucide="grip-vertical"></i>
                                 </button>
                                 <ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm"
-                                popover id="popover-{{ $page->id }}" style="position-anchor:--anchor-{{ $page->id }}">
+                                popover="auto" id="popover-{{ $page->id }}" style="position-anchor: var(--anchor-name);">
                                     <li>
                                         <a class="flex flex-row flex-nowrap items-center gap-1" href="" target="_blank" rel="noopener noreferrer">
                                             <i data-lucide="pencil-sparkles" class="w-4 h-4"></i>
@@ -47,7 +47,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <button class="flex flex-row flex-nowrap items-center gap-1" onclick="pageEdit{{ $page->id }}.showModal()">
+                                        <button class="flex flex-row flex-nowrap items-center gap-1" onclick="document.getElementById('pageEdit{{ $page->id }}').showModal()">
                                             <i data-lucide="square-pen" class="w-4 h-4"></i>  
                                             {{ __('edit') }}
                                         </button>
@@ -66,9 +66,15 @@
                             </div>
                         </td>
                     </tr>
-                    @include('client.pages.partials.edit', ['page' => $page]) 
                 @endforeach
             </tbody>
         </table>
     </div>
+    @foreach($pages as $page)
+        @include('client.pages.partials.edit', ['page' => $page]) 
+    @endforeach
 @endsection
+
+@push('head_scripts')
+    @vite('resources/js/slugForm.js')
+@endpush

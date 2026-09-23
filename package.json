@@ -19,6 +19,7 @@
         "@laravel/multiplex": "^0.4.1"
     },
     "dependencies": {
+        "alpinejs": "^3.17.4",
         "axios": "^1.20.0",
         "flag-icons": "^7.5.0",
         "grapesjs": "^0.23.6",

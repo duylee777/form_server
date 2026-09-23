@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Client\StorePageRequest;
+use App\Http\Requests\Client\UpdatePageRequest;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PageController extends Controller
@@ -17,30 +20,22 @@ class PageController extends Controller
         return view('client.pages.index', compact('pages'));
     }
 
-    public function store (Request $request)
+    public function store (StorePageRequest $request)
     {
-        $data = [
-            'user_id' => Auth::user()->id,
-            'name' => $request->name,
-            'slug' => $request->slug 
-        ];
+        $validated = $request->validated();
+        $validated['user_id'] = Auth::id();
 
-        Page::create($data);
+        Page::create($validated);
 
-        Alert::success('Operation Complete', 'Your changes have been saved successfully.');
+        Alert::success(__('complete'), __('your changes have been saved successfully'));
         return redirect()->route('client.pages.index');
     }
 
-    public function update (Request $request, Page $page)
+    public function update (UpdatePageRequest $request, Page $page)
     {
-        $data = [
-            'name' => $request->name,
-            'slug' => $request->slug 
-        ];
+        $page->update($request->validated());
 
-        $page->update($data);
-
-        Alert::success('Operation Complete', 'Your changes have been saved successfully.');
+        Alert::success(__('complete'), __('your changes have been saved successfully'));
         return redirect()->route('client.pages.index');
     }
 
@@ -48,7 +43,7 @@ class PageController extends Controller
     {
         $page->delete();
 
-        Alert::success('Operation Complete', 'Your changes have been saved successfully.');
+        Alert::success(__('complete'), __('your changes have been saved successfully'));
         return redirect()->route('client.pages.index');
     }
 }

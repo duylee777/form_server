@@ -3,10 +3,14 @@ import grapesjs from 'grapesjs';
 import 'grapesjs/dist/css/grapes.min.css';
 import Swiper from 'swiper';
 import 'swiper/css';
+import Alpine from 'alpinejs';
 import { createIcons, Mail, Lock, GripVertical, Trash, SquarePen, PencilSparkles  } from 'lucide';
 
 window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.grapesjs = grapesjs;
 window.Swiper = Swiper;
+window.Alpine = Alpine;
 createIcons({ icons: { Mail, Lock, GripVertical, Trash, SquarePen, PencilSparkles  } });
+
+Alpine.start();

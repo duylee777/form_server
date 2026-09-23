@@ -6,9 +6,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <title>{{ config('app.name', 'Laravel') }} - {{ __('admin') }} - @yield('title', 'Page')</title>
+    <title>{{ config('app.name', 'Laravel') }} - @yield('title', 'Page')</title>
 
     @fonts
+
+    @stack('head_scripts')
 
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -30,6 +32,7 @@
 
         @include('client.layouts.sidebar')
     </div>
+    @stack('scripts')
     @sweetAlert
 </body>
 </html>

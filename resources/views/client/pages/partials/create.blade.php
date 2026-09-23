@@ -7,14 +7,14 @@
             </form>
             <form method="POST" action="{{ route('client.pages.store') }}" enctype="multipart/form-data" class="grow">
                 @csrf
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div x-data="slugForm('name')" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <fieldset class="fieldset">
                         <label class="label" for="name">{{ __('page name') }}</label>
-                        <input type="text" id="name" name="name" class="input w-full" placeholder="{{ __('page name') }}" />
+                        <input type="text" x-model="name" id="name" name="name" class="input w-full" placeholder="{{ __('page name') }}" />
                     </fieldset>
                     <fieldset class="fieldset">
                         <label class="label" for="slug">{{ __('page slug') }}</label>
-                        <input type="text" id="slug" name="slug" class="input w-full" placeholder="{{ __('page slug') }}" />
+                        <input type="text" x-model="slug" @focus="generateSlugOnFocus" id="slug" name="slug" class="input w-full" placeholder="{{ __('page slug') }}" />
                     </fieldset>
                 </div>
                 <!-- if there is a button, it will close the modal -->
