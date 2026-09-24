@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\GoogleFormController;
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\Client\DashboardController;
+use App\Http\Controllers\Client\EditorController;
 use App\Http\Controllers\Client\PageController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -50,4 +51,7 @@ Route::middleware(['auth'])->name('client.')->group(function () {
         Route::put('/{page}', [PageController::class, 'update'])->name('update');
         Route::delete('/{page}', [PageController::class, 'destroy'])->name('destroy');
     });
+
+    //design
+    Route::get('/design/{slugPage}', [EditorController::class, 'design'])->name('builder.design');
 });
