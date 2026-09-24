@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SocialController extends Controller
 {
@@ -90,5 +91,14 @@ class SocialController extends Controller
             Log::error($e->getMessage());
             return redirect()->route('auth.login')->with('error', __('login failed, please try again'));
         }
+    }
+
+    public function logout (Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        Alert::success(__('complete'), __('successfully logged out'));
+        return redirect()->route('client.dashboard')->with('success', 'Đã đăng xuất thành công!');
     }
 }

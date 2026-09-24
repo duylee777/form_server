@@ -46,13 +46,13 @@ class UpdatePageRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique(Page::class)->ignore($page),
+                Rule::unique(Page::class)->ignore($page)->whereNull('delete_at'),
             ],
             'slug' => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique(Page::class)->ignore($page),
+                Rule::unique(Page::class)->ignore($page)->whereNull('delete_at'),
             ],
         ];
     }

@@ -37,7 +37,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/my-forms/{formId}/fields', [GoogleFormController::class, 'getFields'])->name('forms.fields');
 });
 
+// client route
 Route::middleware(['auth'])->name('client.')->group(function () {
+    Route::post('/logout', [SocialController::class, 'logout'])->name('logout');
     // dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

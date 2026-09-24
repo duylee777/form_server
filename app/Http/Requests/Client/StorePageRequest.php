@@ -41,8 +41,8 @@ class StorePageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', Rule::unique(Page::class)],
-            'slug' => ['required', 'string', 'max:255', Rule::unique(Page::class)]
+            'name' => ['required', 'string', 'max:255', Rule::unique(Page::class)->whereNull('delete_at')],
+            'slug' => ['required', 'string', 'max:255', Rule::unique(Page::class)->whereNull('delete_at')]
         ];
     }
 
